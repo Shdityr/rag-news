@@ -1,0 +1,21 @@
+# Core ML
+sentence-transformers==3.4.1
+faiss-cpu==1.10.0
+torch>=2.2.0
+
+# Data
+datasets==3.5.0
+huggingface-hub>=0.23.0
+
+# Backend
+fastapi==0.115.0
+uvicorn[standard]==0.32.0
+pydantic==2.10.0
+httpx==0.28.0
+
+# Frontend
+streamlit==1.42.0
+
+# Utils
+numpy>=1.26.0
+tqdm>=4.66.0

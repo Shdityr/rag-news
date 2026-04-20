@@ -83,7 +83,10 @@ class SearchRequest(BaseModel):
 
 class SearchResult(BaseModel):
     text: str
-    label: str
+    title: str
+    section: str
+    published_date: str
+    link: str
     score: float
 
 
@@ -116,7 +119,14 @@ def retrieve(query: str, top_k: int) -> list[SearchResult]:
         if idx < 0:
             continue
         meta = _metadata[idx]
-        results.append(SearchResult(text=meta["text"], label=meta["label"], score=float(score)))
+        results.append(SearchResult(
+            text=meta["text"],
+            title=meta.get("title", ""),
+            section=meta.get("section", "General"),
+            published_date=meta.get("published_date", ""),
+            link=meta.get("link", ""),
+            score=float(score),
+        ))
     return results
 
 
@@ -152,7 +162,7 @@ async def rag(req: RagRequest):
     sources = retrieve(req.query, req.top_k)
 
     context = "\n\n".join(
-        f"[{i+1}] ({s.label}) {s.text}" for i, s in enumerate(sources)
+        f"[{i+1}] ({s.section}, {s.published_date}) {s.text}" for i, s in enumerate(sources)
     )
     prompt = f"""You are a news analysis assistant. Based on the following news articles retrieved from a corpus, answer the user's query concisely.
 

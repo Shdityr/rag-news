@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/shdityr/rag-news#readme",
   "dependencies": {
-    "docx": "^9.6.1"
+    "docx": "^9.6.1",
+    "pptxgenjs": "^4.0.1"
   }
 }
